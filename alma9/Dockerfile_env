@@ -18,10 +18,11 @@ RUN yum install -y wcslib wcslib-devel
 
 # Python deps
 RUN yum -y install python3-devel boost boost-devel \
-        python3-numpy boost-python3 python3-pip swig \
+        python3-numpy boost-python3 python3-pip \
         libjpeg-turbo-devel libxslt-devel
 
-RUN pip3 install matplotlib packaging certifi scipy
+# casa does not work with swig4, installing swig3
+RUN pip3 install matplotlib packaging certifi scipy swig==3.0.12
 # traitlets
 
 # Other deps
