@@ -23,8 +23,11 @@ COPY grpc-fix.patch /home/casa/casa6/casatools/grpc-source/grpc-fix.patch
 
 RUN cd casa6/casatools && \
     autoconf && \
-    cd grpc-source && git apply grpc-fix.patch && cd .. && \
-    ./configure PYTHON=/usr/bin/python3 && \
+    ./configure PYTHON=/usr/bin/python3
+
+RUN cd casa6/casatools/grpc-source && git apply grpc-fix.patch
+
+RUN cd casa6/casatools/ && \
     ./setup.py build --march=$arch && \
     ./setup.py install --march=$arch && \
     python3 -m casatools --update-user-data
