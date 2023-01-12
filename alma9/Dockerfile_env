@@ -1,0 +1,39 @@
+# podman build -t casa-env-alma9:0.1 .
+FROM almalinux:9
+
+RUN dnf install -y 'dnf-command(config-manager)' && \
+    dnf config-manager --set-enabled crb && \
+    dnf install -y epel-release && \
+    yum update -y
+
+# Casacore deps
+RUN yum -y install cmake cmake-gui wget git gcc-gfortran gcc-c++ flex bison \
+        blas blas-devel lapack lapack-devel cfitsio cfitsio-devel \
+        ncurses ncurses-devel readline readline-devel \
+        fftw fftw-devel hdf5 hdf5-devel libgomp
+
+# RHEL 9's EPEL does not have wcslib
+RUN dnf install -y https://dl.fedoraproject.org/pub/epel/epel-release-latest-8.noarch.rpm
+RUN yum install -y wcslib wcslib-devel
+
+# Python deps
+RUN yum -y install python3-devel boost boost-devel \
+        python3-numpy boost-python3 python3-pip swig \
+        libjpeg-turbo-devel libxslt-devel
+
+RUN pip3 install matplotlib packaging certifi scipy
+# traitlets
+
+# Other deps
+RUN yum -y install xerces-c-devel libgomp openmpi-devel environment-modules libxml2-devel \
+ java-11-openjdk rsync libtool libsqlite3x-devel \
+ ccache xerces-c gsl-devel && \
+                              \
+ yum install -y https://casa.nrao.edu/download/repo/el7/x86_64/rpfits-2.23-02.el7.x86_64.rpm && \
+                                  \
+ yum install -y https://download-ib01.fedoraproject.org/pub/epel/7/x86_64/Packages/s/shtool-2.0.8-11.el7.noarch.rpm
+
+RUN echo "source /usr/share/Modules/init/bash" >> ~/.bashrc && \
+    echo "module load mpi/openmpi-x86_64" >> ~/.bashrc && \
+    source ~/.bashrc
+
