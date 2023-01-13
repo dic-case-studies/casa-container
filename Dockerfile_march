@@ -1,0 +1,6 @@
+FROM almalinux:9
+
+RUN yum update -y && yum install -y gcc
+
+ENTRYPOINT ["gcc","-march=native","-Q","--help=target"]
+
