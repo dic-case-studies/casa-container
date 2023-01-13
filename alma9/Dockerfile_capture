@@ -1,0 +1,14 @@
+ARG IMAGE_VER=6.5
+ARG CAPTURE_VER=v2.0.0
+
+FROM casa:$IMAGE_VER
+
+WORKDIR /home/casa
+
+RUN git clone https://github.com/ruta-k/CAPTURE-CASA6.git && \
+	cd CAPTURE-CASA6 && \
+	git checkout $capturever
+
+WORKDIR /home/casa/CAPTURE-CASA6
+
+CMD ["-c", "capture-casa6.py"]

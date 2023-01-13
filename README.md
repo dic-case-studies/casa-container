@@ -28,6 +28,11 @@ podman rum --rm -it -v $PWD:/home/casa:z casa:6.5-znver3
 podman rum --rm -it -v $PWD:/home/casa casa:6.5-znver3
 ```
 
+**To run CAPTURE**
+
+```
+podman run --rm -it -v $PWD:/home/casa/CAPTURE-CASA6/data:z capture:2.0.0-skylake
+```
 
 **To fetch machine information**
 
