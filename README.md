@@ -22,10 +22,16 @@
 
 ```
 # For SELinux based distro RHEL, Centos, Alma, Rocky
-podman rum --rm -it -v $PWD:/home/casa:z casa:6.5-znver3
+
+# To run casashell
+podman run --rm -it -v $PWD:/home/casa:z casa:6.5-znver3
+
+# To run a script file with casa
+podman run --rm -it -v $PWD:/home/casa:z casa:6.5-znver3 -c <script_file>
+
 
 # For other disto
-podman rum --rm -it -v $PWD:/home/casa casa:6.5-znver3
+podman run --rm -it -v $PWD:/home/casa casa:6.5-znver3
 ```
 
 **To run CAPTURE**
