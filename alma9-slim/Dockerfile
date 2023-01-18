@@ -85,7 +85,6 @@ RUN dnf install -y 'dnf-command(config-manager)' && \
     yum -y remove blas-devel lapack-devel cfitsio-devel \
         ncurses-devel  readline-devel \
         fftw-devel hdf5-devel wcslib-devel boost-devel libjpeg-turbo-devel libxslt-devel \
-        xerces-c-devel libxml2-devel libsqlite3x-devel gsl-devel \
-        gcc-gfortran gcc-c++ ccache
+        xerces-c-devel libxml2-devel libsqlite3x-devel gsl-devel
 
 ENTRYPOINT ["python3", "-m", "casashell"]
