@@ -2,10 +2,13 @@ FROM almalinux:9
 
 ARG arch=native
 ARG version=6.5.3.21
+# Fork of CASA is built
+# Change to https://open-bitbucket.nrao.edu/scm/casa/casa6.git for NRAO's repo
+ARG CASA_URL=https://github.com/dic-case-studies/casa6.git
 
 WORKDIR /home/casa
 
-COPY 0001-Update-casatools-build-to-compile-with-march.patch /home/casa/0001-Update-casatools-build-to-compile-with-march.patch
+COPY 0001-Add-U_GLIBCXX_ASSERTIONS-for-casacore-issue.patch /home/casa/0001-Add-U_GLIBCXX_ASSERTIONS-for-casacore-issue.patch
 
 COPY grpc-fix.patch /home/casa/grpc-fix.patch
 
@@ -45,13 +48,13 @@ RUN dnf install -y 'dnf-command(config-manager)' && \
     echo "source /usr/share/Modules/init/bash" >> ~/.bashrc && \
     echo "module load mpi/openmpi-x86_64" >> ~/.bashrc && \
     source ~/.bashrc  && \
-    git clone https://open-bitbucket.nrao.edu/scm/casa/casa6.git && \
-    cp /home/casa/0001-Update-casatools-build-to-compile-with-march.patch /home/casa/casa6/0001-Update-casatools-build-to-compile-with-march.patch && \
+    git clone $CASA_URL && \
+    cp /home/casa/0001-Add-U_GLIBCXX_ASSERTIONS-for-casacore-issue.patch /home/casa/casa6/0001-Add-U_GLIBCXX_ASSERTIONS-for-casacore-issue.patch && \
     \
     # Configure CASA and run
     cd /home/casa/casa6 && \
     git checkout $version && \
-    git apply 0001-Update-casatools-build-to-compile-with-march.patch && \
+    git apply 0001-Add-U_GLIBCXX_ASSERTIONS-for-casacore-issue.patch && \
     git submodule update --init --recursive && \
     cd casatools/casacore && \
     git checkout feature/simd-min-3.5.0 && \

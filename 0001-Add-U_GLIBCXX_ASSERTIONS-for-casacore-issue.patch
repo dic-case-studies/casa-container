@@ -1,0 +1,25 @@
+From 49712e682b70ad58fc7fd356391b696474e53cee Mon Sep 17 00:00:00 2001
+From: Mark1626 <nimalan.m@protonmail.com>
+Date: Fri, 20 Jan 2023 15:44:30 +0530
+Subject: [PATCH] Add U_GLIBCXX_ASSERTIONS for casacore issue
+
+---
+ casatools/ac/templates/setup.py.in | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/casatools/ac/templates/setup.py.in b/casatools/ac/templates/setup.py.in
+index a6902cdc2..99f1e19b9 100644
+--- a/casatools/ac/templates/setup.py.in
++++ b/casatools/ac/templates/setup.py.in
+@@ -1017,7 +1017,7 @@ if casa_have_mpi:
+ else:
+     mpi_cxx_flags = []
+ 
+-module_cflags = { 'casacore/': ['-DCFITSIO_VERSION_MAJOR=3', '-DCFITSIO_VERSION_MINOR=370', \
++module_cflags = { 'casacore/': ['-U_GLIBCXX_ASSERTIONS', '-DCFITSIO_VERSION_MAJOR=3', '-DCFITSIO_VERSION_MINOR=370', \
+                                  '-DHAVE_DYSCO', '-DHAVE_FFTW3', '-DHAVE_FFTW3_THREADS', '-DHAVE_READLINE', \
+                                  '-DUSE_THREADS', '-DUseCasacoreNamespace', '-DWCSLIB_VERSION_MAJOR=5', \
+                                  '-DWCSLIB_VERSION_MINOR=15', '-fsigned-char', '-DWITHOUT_BOOST', \
+-- 
+2.38.1
+
